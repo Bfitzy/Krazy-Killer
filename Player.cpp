@@ -21,8 +21,8 @@ Player::Player() :
 	Load("sprites/62.png");
 	Load("sprites/29.png");
 	Load("sprites/30.png");
-    pistol = AddGun(3,50,"sprites/0.ogg",1,4);
-    magnum = AddGun(5,70,"sprites/4.ogg",5,4);
+    pistol = AddGun(3,30,"sprites/0.ogg",1,4);
+    magnum = AddGun(5,50,"sprites/4.ogg",5,4);
     uzi = AddGun(1,10,"sprites/2.ogg",1,10);
     laserpistol = AddGun(2,20,"sprites/3.ogg",0,1);
     shotgun = AddGun(2,50,"sprites/5.ogg",10,20);
@@ -204,6 +204,31 @@ void Player::NewGun()
 //_gun = (Gunenum)(rand()%8+4);
 _gun = (Gunenum) (rand()%4+1);
 Shift(_gun * 2);
+Crosshair* cross = dynamic_cast<Crosshair*>(Game::GetGameObjectManager().Get("crosshair"));
+if(_gun == Pistol|| _gun == Laserpistol|| _gun == Magnum|| _gun == Uzi)
+{
+	cross->Switch("sprites/260.png");
+}else if (_gun == LaserRifle)
+{
+	cross->Switch("sprites/264.png");
+}else if (_gun == Shotgun)
+{
+	cross->Switch("sprites/262.png");
+}else if (_gun == SMG)
+{
+	cross->Switch("sprites/261.png");
+} else if (_gun == Shotgun)
+{
+	cross->Switch("sprites/262.png");
+}
+else if (_gun == SniperRifle)
+{
+	cross->Switch("sprites/263.png");
+}
+else if (_gun == BeamRifle)
+{
+	cross->Switch("sprites/266.png");
+}
 }
 Gun Player::GetGun()
 {
@@ -290,4 +315,13 @@ return gun;
 	int Player::Getproj()
 	{
 		return (int)_gun;
+	}
+	bool Player::dead()
+	{
+		if (_health < 1&&!_dead)
+		{
+			_dead = true;
+			return true;
+		}
+		 return false;
 	}

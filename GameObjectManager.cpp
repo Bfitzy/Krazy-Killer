@@ -14,9 +14,16 @@
 
  void GameObjectManager::Add(std::string name, VisibleGameObject* gameObject)
  {
-   _gameObjects.insert(std::pair<std::string,VisibleGameObject*>(name,gameObject));
+	 _gameObjects.insert(std::pair<std::string, VisibleGameObject*>(name, gameObject));
  }
-
+ void GameObjectManager::AddOnTop(std::string name, VisibleGameObject* gameObject)
+ {
+	 _toplayer.insert(std::pair<std::string, VisibleGameObject*>(name, gameObject));
+ }
+ void GameObjectManager::AddOnBottom(std::string name, VisibleGameObject* gameObject)
+ {
+	 _bottomlayer.insert(std::pair<std::string, VisibleGameObject*>(name, gameObject));
+ }
  void GameObjectManager::Remove(std::string name)
  {
    std::map<std::string, VisibleGameObject*>::iterator results = _gameObjects.find(name);
@@ -24,6 +31,7 @@
    {
      delete results->second;
      _gameObjects.erase(results);
+	 _toplayer.erase(results);
    }
  }
  void GameObjectManager::Paint(std::string _path, float x, float y)
@@ -31,10 +39,11 @@
 	 std::string name = "Paint";
 	 std::string result;
 	 char numstr[21]; // enough to hold all numbers up to 64-bits
-	 sprintf(numstr, "%d", _gameObjects.size() + 1);
+	 sprintf(numstr, "%zd", _gameObjects.size() + 1);
 	 result = name + numstr;
 	 Body *body = new Body(result, _path, x, y);
 	 Game::Add(result, body);
+
  }
  VisibleGameObject* GameObjectManager::Get(std::string name) const
  {
@@ -58,6 +67,12 @@
    {
      itr->second->Draw(renderWindow);
      itr++;
+   }
+   std::map<std::string, VisibleGameObject*>::const_iterator itr2 = _toplayer.begin();
+   while (itr2 != _toplayer.end())
+   {
+	   itr2->second->Draw(renderWindow);
+	   itr2++;
    }
  }
  void GameObjectManager::UpdateAll()

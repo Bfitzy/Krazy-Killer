@@ -41,13 +41,14 @@ void Game::Start(void)
 
   Player *player1 = new Player();
   _gameObjectManager.Add("player1", player1);
+  _gameObjectManager.AddOnTop("player1", player1);
 
     WeaponCrate *crate = new WeaponCrate();
   _gameObjectManager.Add("crate", crate);
 
   Crosshair *cross = new Crosshair();
   _gameObjectManager.Add("crosshair",cross);
-
+  _gameObjectManager.AddOnTop("crosshair", cross);
   Map *map1 = new Map();
   map1->SetPosition(480,360);
   _gameObjectManager.Add(" map1",map1);
@@ -78,8 +79,12 @@ void Game::Start(void)
 
 bool Game::IsExiting()
 {
-  if(_gameState == Game::Exiting)
-    return true;
+	if (_gameState == Game::Exiting) {
+		_gameObjectManager.~GameObjectManager();
+		_krazySpawner.~Krazyspawner();
+		return true;
+  }
+
   else
     return false;
 }
@@ -146,14 +151,25 @@ void Game::GameLoop()
               if(event.key.code == sf::Keyboard::Escape) ShowMenu();
           }
 
-          break;}
+          break;
+		case Game::Exiting:
+			_gameObjectManager.~GameObjectManager();
+			_krazySpawner.~Krazyspawner();
+		  break;}
   }
 }
 void Game::Add(std::string name, VisibleGameObject* object)
 {
     _gameObjectManager.Add(name, object);
 }
-
+void Game::AddOnTop(std::string name, VisibleGameObject* object)
+{
+	_gameObjectManager.AddOnTop(name, object);
+}
+void Game::Paint(std::string _path, float x, float y)
+{
+	_gameObjectManager.Paint(_path, x, y);
+}
 void Game::ShowSplashScreen()
 {
     SplashScreen splashscreen;

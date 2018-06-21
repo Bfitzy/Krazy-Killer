@@ -13,6 +13,7 @@ public:
    void Remove(std::string name);
    void Spawn();
    int GetKrazyCount() const;
+   void DeathClock();
    VisibleGameObject* Get(std::string name) const;
  private:
      int reds;

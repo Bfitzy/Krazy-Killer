@@ -24,7 +24,7 @@ RedKrazy *red = new RedKrazy();
 std::string name = "red";
 std::string result;
 char numstr[21]; // enough to hold all numbers up to 64-bits
-sprintf(numstr, "%d", reds);
+sprintf(numstr, "%I32d", (int) reds);
 result = name + numstr;
 //name += std::to_string(reds);
 //std::stringstream Stream;
@@ -33,6 +33,7 @@ result = name + numstr;
 //name = Stream.str();
 Add(result, red);
 Game::Add(result, red);
+//Game::AddOnTop(result, red);
 reds++;
  }
  void Krazyspawner::AddBody(std::string _path, float x, float y)
@@ -40,7 +41,7 @@ reds++;
 	 std::string name = "body";
 	 std::string result;
 	 char numstr[21]; // enough to hold all numbers up to 64-bits
-	 sprintf(numstr, "%d", _krazyObjects.size()+1);
+	 sprintf(numstr, "%I32d",(int) _krazyObjects.size()+1);
 	 result = name + numstr;
 	 Body *body = new Body(result, _path, x, y);
 	 Game::Add(result, body);
@@ -82,4 +83,15 @@ void Krazyspawner::Spawn()
 
     }
 
+}
+void Krazyspawner::DeathClock()
+{
+	std::map<std::string, VisibleGameObject*>::const_iterator itr = _krazyObjects.begin();
+	float timeDelta = clock.restart().asSeconds();
+
+	while (itr != _krazyObjects.end())
+	{
+		//itr->second->;
+		itr++;
+	}
 }

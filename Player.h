@@ -48,11 +48,13 @@ class Player :
         float GetVelocityY() const;
         bool NX();
 		bool NY();
+		bool dead();
         int GetHealth();
         void Damage(int health);
         float GetAngle();
 		int Getproj();
         sf::Vector2f GetVectoMouse();
+
 
 
     private:
@@ -74,6 +76,7 @@ class Player :
         float distmx;
         float distm;
         float _time;
+		bool _dead;
 
     };
 

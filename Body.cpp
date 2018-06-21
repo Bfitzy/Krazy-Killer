@@ -2,6 +2,7 @@
 #define sq2 sqrt(2)
 Body::Body(std::string name, std::string str, float x, float y)
 {
+
 	_path = str;
 	_x = x;
 	_y = y;
@@ -17,7 +18,6 @@ Body::~Body()
 }
 void Body::Draw(sf::RenderWindow& rw)
 {
-	if(_time>10) 
 	VisibleGameObject::Draw(rw);
 }
 void Body::Update(float elapsedTime)

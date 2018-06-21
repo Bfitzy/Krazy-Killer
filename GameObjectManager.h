@@ -8,6 +8,8 @@
    ~GameObjectManager();
 
    void Add(std::string name, VisibleGameObject* gameObject);
+   void AddOnTop(std::string name, VisibleGameObject* gameObject);
+   void AddOnBottom(std::string name, VisibleGameObject* gameObject);
    void Remove(std::string name);
    int GetObjectCount() const;
    VisibleGameObject* Get(std::string name) const;
@@ -19,6 +21,8 @@
 //   std::vector<std::weak_ptr<ICollideable>> GetCollideables();
  private:
    std::map<std::string, VisibleGameObject*> _gameObjects;
+   std::map<std::string, VisibleGameObject*> _toplayer;
+   std::map<std::string, VisibleGameObject*> _bottomlayer;
    //std::map<std::string, VisibleGameObject*> _collideables;
    sf::Clock clock;
    //std::vector<std::weak_ptr<ICollideable>> mCollideables;

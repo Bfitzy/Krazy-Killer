@@ -1,4 +1,5 @@
 #pragma once
+#include "Game.h"
 #include "VisibleGameObject.h"
 
 
@@ -17,6 +18,9 @@ private:
   float _elapsedTimeSinceStart;
   float _speed;
   std::string _path;
+  bool _dead;
+  float _timedead;
+  int _health;
 
   float LinearVelocityX(float angle);
   float LinearVelocityY(float angle);

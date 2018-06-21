@@ -24,6 +24,8 @@ public:
   const static GameObjectManager& GetGameObjectManager();
   const static Krazyspawner& GetKrazyspawner();
   static void Add(std::string, VisibleGameObject* object);
+  static void AddOnTop(std::string, VisibleGameObject* object);
+  static void Paint(std::string _path, float x, float y);
 //  bool checkCollision(std::weak_ptr<ICollideable> a, std::weak_ptr<ICollideable> b);
 //  void resolveCollision(std::weak_ptr<ICollideable> a, std::weak_ptr<ICollideable> b);
 //  std::vector<std::weak_ptr<ICollideable>> GetCollideables();
